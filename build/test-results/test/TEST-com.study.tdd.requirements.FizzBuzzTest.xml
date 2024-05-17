@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.study.tdd.requirements.FizzBuzzTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2024-05-17T15:35:25" hostname="DESKTOP-93UAESK" time="0.008">
+  <properties/>
+  <testcase name="testIfEqualsFizzBuzz" classname="com.study.tdd.requirements.FizzBuzzTest" time="0.003"/>
+  <testcase name="testIfNotEqualsBuzz" classname="com.study.tdd.requirements.FizzBuzzTest" time="0.001"/>
+  <testcase name="testIfNotEqualsFizz" classname="com.study.tdd.requirements.FizzBuzzTest" time="0.0"/>
+  <testcase name="testIfNotEqualsFizzBuzz" classname="com.study.tdd.requirements.FizzBuzzTest" time="0.001"/>
+  <testcase name="testIfEqualsBuzz" classname="com.study.tdd.requirements.FizzBuzzTest" time="0.001"/>
+  <testcase name="testIfEqualsFizz" classname="com.study.tdd.requirements.FizzBuzzTest" time="0.001"/>
+  <testcase name="testIfFizzBuzzValid" classname="com.study.tdd.requirements.FizzBuzzTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
