@@ -1,9 +1,12 @@
 package com.study.tdd.chapters.chapter02;
 
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class PasswordStrengthMeterTest {
 
     private PasswordStrengthMeter meter = new PasswordStrengthMeter();
@@ -43,5 +46,15 @@ public class PasswordStrengthMeterTest {
     @Test
     void meetsOnlyLengthCriteria_Then_Weak() {
         assertStrength("abdefghi", PasswordStrength.WEAK);
+    }
+
+    @Test
+    void meetsOnlyUpperCriteria_Then_Weak() {
+        assertStrength("ABZEF", PasswordStrength.WEAK);
+    }
+
+    @Test
+    void meetsNoCriteria_Then_Weak() {
+        assertStrength("abc", PasswordStrength.WEAK);
     }
 }

@@ -1,3 +1,7 @@
+HELP.md
+.gradle
+build/
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
