@@ -32,7 +32,7 @@ public class PayData {
     }
 
     public static class Builder {
-        private PayData data = new PayData();
+        private final PayData data = new PayData();
 
         public Builder firstBillingDate(LocalDate firstBillingDate) {
             data.firstBillingDate = firstBillingDate;
