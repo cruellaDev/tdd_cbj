@@ -1,5 +1,29 @@
 package com.study.tdd.requirements;
 
+/**
+ * <pre>
+ * Write a program that prints the numbers from 1 to 100.
+ * But for multiples of three print "Fizz" instead of the number and for the multiples of five print "Buzz".
+ * For numbers which are multiples of both three and five print "FizzBuzz".
+ *
+ * Sample output:
+ *
+ * 1
+ * 2
+ * Fizz
+ * 4
+ * Buzz
+ * Fizz
+ * 7
+ * 8
+ * Fizz
+ * ... etc up to 100
+ * </pre>
+ * @version 1.0
+ * @author Lee, Ji Won
+ * @since 2024.05.18
+ * @link    <a href="https://cyber-dojo.org/creator/home">cyber-dojo</a>
+ */
 public class FizzBuzz {
 
     public enum Types {

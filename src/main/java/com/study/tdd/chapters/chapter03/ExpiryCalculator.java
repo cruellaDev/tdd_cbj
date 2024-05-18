@@ -3,6 +3,15 @@ package com.study.tdd.chapters.chapter03;
 import java.time.LocalDate;
 import java.time.YearMonth;
 
+/**
+ * <pre>
+ * 납부한 금액 기준으로 서비스 만료일 계산
+ * </pre>
+ * @version 1.0
+ * @author Lee, Ji Won
+ * @since 2024.05.17
+ * @link    <a href="https://product.kyobobook.co.kr/detail/S000001248962">테스트주도개발시작하기</a>
+ */
 public class ExpiryCalculator {
 
     public LocalDate calculateExpiryDate(PayData payData) {

@@ -1,9 +1,9 @@
-<테스트 주도 개발 시작하기> - 최범균
+[<테스트 주도 개발 시작하기> - 최범균](https://product.kyobobook.co.kr/detail/S000001248962)
 - chapter02
-- - [Calculator](src/main/java/com/study/tdd/chapters/chapter02/Calculator.java) | [CalculatorTest](src/test/java/com/study/tdd/chapters/chapter02/CalculatorTest.java)
-- - [PasswordStrengthMeter](src/main/java/com/study/tdd/chapters/chapter02/PasswordStrengthMeter.java) | [PasswordStrengthMeterTest](src/test/java/com/study/tdd/chapters/chapter02/PasswordStrengthMeterTest.java)
+- - [Calculator](src/main/java/com/study/tdd/chapters/chapter02/Calculator.java "계산기") | [CalculatorTest](src/test/java/com/study/tdd/chapters/chapter02/CalculatorTest.java)
+- - [PasswordStrengthMeter](src/main/java/com/study/tdd/chapters/chapter02/PasswordStrengthMeter.java "암호검사기") | [PasswordStrengthMeterTest](src/test/java/com/study/tdd/chapters/chapter02/PasswordStrengthMeterTest.java)
 - chapter03
-- - [ExpiryCalculator](src/main/java/com/study/tdd/chapters/chapter03/ExpiryCalculator.java) | [ExpiryCalculatorTest](src/test/java/com/study/tdd/chapters/chapter03/ExpiryDateCalculatorTest.java)
+- - [ExpiryCalculator](src/main/java/com/study/tdd/chapters/chapter03/ExpiryCalculator.java "납부한 금액 기준으로 서비스 만료일 계산") | [ExpiryCalculatorTest](src/test/java/com/study/tdd/chapters/chapter03/ExpiryDateCalculatorTest.java)
 
 
 추가 요구사항
