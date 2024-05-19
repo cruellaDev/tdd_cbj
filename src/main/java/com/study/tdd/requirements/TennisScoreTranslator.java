@@ -8,18 +8,18 @@ public class TennisScoreTranslator {
         int player2Points = tennisGame.getPlayer2Points();
         int maxPoints = Math.max(player1Points, player2Points);
         int pointsDiff = Math.abs(player1Points - player2Points);
-        if (player1Points >= 3 && pointsDiff == 0) {
+        if (maxPoints >= 3 && pointsDiff == 0) {
             return TennisGameScores.DEUCE.name();
         } else if (maxPoints > 3 && pointsDiff == 1) {
-            return player1Points > player2Points ? player1Name + " : " + TennisGameScores.ADVANTAGE : player2Name + " : " + TennisGameScores.ADVANTAGE;
+            return (player1Points > player2Points ? player1Name : player2Name) + " : " + TennisGameScores.ADVANTAGE;
         } else if (maxPoints > 3 && pointsDiff > 1) {
-            return player1Points > player2Points ? player1Name + " : " + TennisGameScores.WINNER : player2Name + " : " + TennisGameScores.WINNER;
+            return (player1Points > player2Points ? player1Name : player2Name) + " : " + TennisGameScores.WINNER;
         }
-        return player1Name + " : " + switchPointsToGameScore(player1Points)
-                + ", " + player2Name + " : " + switchPointsToGameScore(player2Points);
+        return player1Name + " : " + switchPointsToGameScores(player1Points)
+                + ", " + player2Name + " : " + switchPointsToGameScores(player2Points);
     }
 
-    private TennisGameScores switchPointsToGameScore(int gamePoints) {
+    private TennisGameScores switchPointsToGameScores(int gamePoints) {
         return switch (gamePoints) {
             case 0 -> TennisGameScores.LOVE;
             case 1 -> TennisGameScores.FIFTEEN;
