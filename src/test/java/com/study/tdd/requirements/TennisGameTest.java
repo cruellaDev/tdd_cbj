@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class TennisGameTest {
 
+    private final TennisScoreTranslator translator = new TennisScoreTranslator();
+
     @Test
     void input_players_name() {
 //        TennisGame game =  new TennisGame("조코비치", "나달");
@@ -24,61 +26,104 @@ public class TennisGameTest {
     }
 
     @Test
-    void test_if_init_game_status_is_not_ready() {
-        TennisGame game =  TennisGame.builder()
-                .build();
-        assertEquals("NOT_READY", game.showStatus());
-    }
-
-    @Test
-    void set_game_play() {
-        TennisGame game =  TennisGame.builder()
-                .player1Name("조코비치")
-                .player2Name("나달")
-                .start()
-                .build();
-        assertEquals("PLAYING", game.showStatus());
-    }
-
-    @Test
-    void show_players_scores_before_play_games() {
+    void show_players_scores_after_set_games() {
         TennisGame game =  TennisGame.builder()
                 .player1Name("조코비치")
                 .player2Name("나달")
                 .build();
-        assertEquals("GAME_IS_NOT_READY", game.showScores());
+        assertEquals("조코비치 : LOVE, 나달 : LOVE", translator.showScores(game));
     }
 
     @Test
-    void show_players_score_before_play_games() {
+    void show_players_scores_after_player1_add_points() {
         TennisGame game =  TennisGame.builder()
                 .player1Name("조코비치")
                 .player2Name("나달")
+                .addPoints(1, 0)
                 .build();
-        assertEquals("GAME_IS_NOT_READY", game.showScores());
+        assertEquals("조코비치 : FIFTEEN, 나달 : LOVE", translator.showScores(game));
+
+        TennisGame game2 =  TennisGame.builder()
+                .player1Name("조코비치")
+                .player2Name("나달")
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .build();
+        assertEquals("조코비치 : THIRTY, 나달 : LOVE", translator.showScores(game2));
+
+        TennisGame game3 =  TennisGame.builder()
+                .player1Name("조코비치")
+                .player2Name("나달")
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .build();
+        assertEquals("조코비치 : FORTY, 나달 : LOVE", translator.showScores(game3));
     }
 
-    // TODO
     @Test
-    void cannot_play_game_if_players_less_then_one() {
-        TennisGame game =  TennisGame.builder()
-                .start()
+    void deuce_when_both_players_have_three_points() {
+        TennisGame game3 =  TennisGame.builder()
+                .player1Name("조코비치")
+                .player2Name("나달")
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(0, 1)
+                .addPoints(0, 1)
+                .addPoints(0, 1)
                 .build();
-        assertEquals("PLAYING", game.showStatus());
+        assertEquals("DEUCE", translator.showScores(game3));
     }
 
-    // TODO
     @Test
-    void stop_game_if_players_less_then_one() {
-        TennisGame game =  TennisGame.builder()
-                .start()
+    void player1_have_advantage_when_both_players_have_more_than_three_points_and_player1_add_points_one_more() {
+        TennisGame game3 =  TennisGame.builder()
+                .player1Name("조코비치")
+                .player2Name("나달")
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(0, 1)
+                .addPoints(0, 1)
+                .addPoints(0, 1)
+                .addPoints(1, 0)
                 .build();
-        assertEquals("PLAYING", game.showStatus());
+        assertEquals("조코비치 : ADVANTAGE", translator.showScores(game3));
+    }
+
+    @Test
+    void deuce_when_both_players_have_more_than_three_points() {
+        TennisGame game3 =  TennisGame.builder()
+                .player1Name("조코비치")
+                .player2Name("나달")
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(0, 1)
+                .addPoints(0, 1)
+                .addPoints(0, 1)
+                .addPoints(1, 0)
+                .addPoints(0, 1)
+                .build();
+        assertEquals("DEUCE", translator.showScores(game3));
+    }
+
+    @Test
+    void show_players_scores_after_player1_add_points_four_times_in_a_row() {
+        TennisGame game3 =  TennisGame.builder()
+                .player1Name("조코비치")
+                .player2Name("나달")
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .build();
+        assertEquals("조코비치 : WINNER", translator.showScores(game3));
     }
 
     // 게임 계속 연출 Builder로 해보기
 
-    // TODO - -1점 WITHDRAW || PENALTY
     // TODO - 0점 Love
     // TODO - +1점 A FIFTEEN
     // TODO - +1점 A THIRTY
@@ -88,8 +133,6 @@ public class TennisGameTest {
     // TODO - +1점 B THIRTY
     // TODO - +1점 B FORTY
     // TODO - +1점 B wins
-    // TODO - set end
-    // TODO - set ready
     // TODO - 0점 Love
     // TODO - +1점 A FIFTEEN
     // TODO - +1점 A THIRTY

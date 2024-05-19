@@ -4,29 +4,12 @@ public class TennisGame {
 
     private String player1Name;
     private String player2Name;
-    private int player1Score;
-    private int player2Score;
-    private GameStatus status;
+    private int player1Points;
+    private int player2Points;
 
     private TennisGame() {
-        this.status = GameStatus.NOT_READY;
-        this.player1Score = 0;
-        this.player2Score = 0;
-    }
-
-    private enum GameStatus {
-        NOT_READY,
-        PLAYING,
-        END
-    }
-
-    private enum GameScores {
-        LOVE,
-        FIFTEEN,
-        THIRTY,
-        FORTY,
-        DEUCE,
-        ADVANTAGE
+        this.player1Points = 0;
+        this.player2Points = 0;
     }
 
     public String getPlayer1Name() {
@@ -37,27 +20,12 @@ public class TennisGame {
         return player2Name;
     }
 
-    private GameStatus getStatus() {
-        return status;
+    public int getPlayer1Points() {
+        return player1Points;
     }
 
-    public int getPlayer1Score() {
-        return player1Score;
-    }
-
-    public int getPlayer2Score() {
-        return player2Score;
-    }
-
-    public String showStatus() {
-        return getStatus().name();
-    }
-
-    public String showScores() {
-        if ((GameStatus.NOT_READY).equals(getStatus())) {
-            return "GAME_IS_" + GameStatus.NOT_READY.name();
-        }
-        return null;
+    public int getPlayer2Points() {
+        return player2Points;
     }
 
     public static Builder builder() {
@@ -77,8 +45,9 @@ public class TennisGame {
             return this;
         }
 
-        public Builder start() {
-            game.status = GameStatus.PLAYING;
+        public Builder addPoints(int player1Point, int player2Point) {
+            game.player1Points += player1Point;
+            game.player2Points += player2Point;
             return this;
         }
 
@@ -86,5 +55,4 @@ public class TennisGame {
             return game;
         }
     }
-
 }
