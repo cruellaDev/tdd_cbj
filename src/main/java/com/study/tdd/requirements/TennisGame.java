@@ -53,12 +53,16 @@ public class TennisGame {
         }
 
         public Builder addPoints(int player1Point, int player2Point) {
-            if (game.playedSets > 0) {
-                System.out.println("이미 종료된 세트입니다.");
+            if (Math.abs(player1Point) > 1 || Math.abs(player2Point) > 1) {
+                System.err.println("정상적인 입력이 아닙니다. (" + player1Point + ", " + player2Point + ")");
                 return this;
             }
+            if (game.playedSets > 0) {
+                System.err.println("이미 종료된 세트입니다.");
+                return this;
+            }
+            game.player1Points += player1Point;;
             game.player2Points += player2Point;
-            game.player1Points += player1Point;
 
             boolean isWinnerDecided = isWinnerDecided(game.player2Points, game.player1Points);
             if (isWinnerDecided) {
@@ -68,6 +72,12 @@ public class TennisGame {
         }
 
         public TennisGame build() {
+            if (game.player1Name == null || game.player1Name.isBlank()) {
+                game.player1Name = "anonym1";
+            }
+            if (game.player2Name == null || game.player2Name.isBlank()) {
+                game.player2Name = "anonym2";
+            }
             return game;
         }
     }

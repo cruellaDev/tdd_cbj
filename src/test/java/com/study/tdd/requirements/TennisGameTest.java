@@ -137,4 +137,28 @@ public class TennisGameTest {
         assertEquals("조코비치 : WINNER", translator.showScores(game));
     }
 
+    @Test
+    void each_points_limited_to_one() {
+        TennisGame game =  TennisGame.builder()
+                .player1Name("조코비치")
+                .player2Name("나달")
+                .addPoints(5, 0)
+                .addPoints(2, 0)
+                .addPoints(2, 0)
+                .addPoints(2, 0)
+                .addPoints(1, 0)
+                .build();
+        assertEquals(0, game.getPlayedSets());
+        assertEquals("조코비치 : FIFTEEN, 나달 : LOVE", translator.showScores(game));
+    }
+
+    @Test
+    void prepared_for_players_who_are_so_shy() {
+        TennisGame game =  TennisGame.builder()
+                .addPoints(1, 0)
+                .build();
+        assertEquals(0, game.getPlayedSets());
+        assertEquals("anonym1 : FIFTEEN, anonym2 : LOVE", translator.showScores(game));
+    }
+
 }
