@@ -7,5 +7,7 @@ public enum TennisGameScores {
     FORTY,
     DEUCE,
     ADVANTAGE,
-    WINNER
+    WINNER,
+    BEHIND,
+    LOSER
 }

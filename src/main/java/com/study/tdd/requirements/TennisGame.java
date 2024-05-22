@@ -7,9 +7,12 @@ public class TennisGame {
     private int player1Points;
     private int player2Points;
 
+    private int playedSets;
+
     private TennisGame() {
         this.player1Points = 0;
         this.player2Points = 0;
+        this.playedSets = 0;
     }
 
     public String getPlayer1Name() {
@@ -26,6 +29,10 @@ public class TennisGame {
 
     public int getPlayer2Points() {
         return player2Points;
+    }
+
+    public int getPlayedSets() {
+        return playedSets;
     }
 
     public static Builder builder() {
@@ -46,13 +53,54 @@ public class TennisGame {
         }
 
         public Builder addPoints(int player1Point, int player2Point) {
-            game.player1Points += player1Point;
+            if (game.playedSets > 0) {
+                System.out.println("이미 종료된 세트입니다.");
+                return this;
+            }
             game.player2Points += player2Point;
+            game.player1Points += player1Point;
+
+            boolean isWinnerDecided = isWinnerDecided(game.player2Points, game.player1Points);
+            if (isWinnerDecided) {
+                game.playedSets++;
+            }
             return this;
         }
 
         public TennisGame build() {
             return game;
         }
+    }
+
+    public static TennisGameScores compareTo(int sourcePoints, int targetPoints) {
+        int pointsDiff = Math.abs(sourcePoints - targetPoints);
+        if (sourcePoints >= 3 && pointsDiff == 0) {
+            return TennisGameScores.DEUCE;
+        } else if (sourcePoints > 3 && pointsDiff == 1) {
+            return TennisGameScores.ADVANTAGE;
+        } else if (sourcePoints > 3 && pointsDiff > 1) {
+            return TennisGameScores.WINNER;
+        } else if (targetPoints > 3 && pointsDiff == 1) {
+            return TennisGameScores.BEHIND;
+        } else if (targetPoints > 3 && pointsDiff > 1) {
+            return TennisGameScores.LOSER;
+        } else {
+            return switchPointsToGameScores(sourcePoints);
+        }
+    }
+
+    public static TennisGameScores switchPointsToGameScores(int gamePoints) {
+        return switch (gamePoints) {
+            case 0 -> TennisGameScores.LOVE;
+            case 1 -> TennisGameScores.FIFTEEN;
+            case 2 -> TennisGameScores.THIRTY;
+            case 3 -> TennisGameScores.FORTY;
+            default -> null;
+        };
+    }
+
+    public static boolean isWinnerDecided(int sumPoints1, int sumPoints2) {
+        return compareTo(sumPoints1, sumPoints2).equals(TennisGameScores.WINNER)
+                || compareTo(sumPoints2, sumPoints1).equals(TennisGameScores.WINNER);
     }
 }

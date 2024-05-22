@@ -122,4 +122,19 @@ public class TennisGameTest {
         assertEquals("조코비치 : WINNER", translator.showScores(game3));
     }
 
+    @Test
+    void sets_increment_when_player1_win_the_first_set() {
+        TennisGame game =  TennisGame.builder()
+                .player1Name("조코비치")
+                .player2Name("나달")
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .addPoints(1, 0)
+                .build();
+        assertEquals(1, game.getPlayedSets());
+        assertEquals("조코비치 : WINNER", translator.showScores(game));
+    }
+
 }
