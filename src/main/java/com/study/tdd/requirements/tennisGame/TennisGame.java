@@ -84,7 +84,7 @@ public class TennisGame {
                 System.err.println("정상적인 입력이 아닙니다. (" + player1Point + ", " + player2Point + ")");
                 return this;
             }
-            game.player1Points += player1Point;;
+            game.player1Points += player1Point;
             game.player2Points += player2Point;
 
             boolean isWinnerDecided = isWinnerDecided(game.player2Points, game.player1Points);
