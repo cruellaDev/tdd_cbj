@@ -161,4 +161,19 @@ public class TennisGameTest {
         assertEquals("anonym1 : FIFTEEN, anonym2 : LOVE", translator.showScores(game));
     }
 
+    @Test
+    void negative_points_are_not_allowed() {
+        TennisGame game =  TennisGame.builder()
+                .player1Name("조코비치")
+                .player2Name("나달")
+                .addPoints(-1, 0)
+                .addPoints(2, -1)
+                .addPoints(0, 0)
+                .addPoints(-1, -1)
+                .addPoints(1, 0)
+                .build();
+        assertEquals(0, game.getPlayedSets());
+        assertEquals("조코비치 : FIFTEEN, 나달 : LOVE", translator.showScores(game));
+    }
+
 }
