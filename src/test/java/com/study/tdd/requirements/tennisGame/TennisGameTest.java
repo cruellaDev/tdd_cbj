@@ -1,4 +1,4 @@
-package com.study.tdd.requirements;
+package com.study.tdd.requirements.tennisGame;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

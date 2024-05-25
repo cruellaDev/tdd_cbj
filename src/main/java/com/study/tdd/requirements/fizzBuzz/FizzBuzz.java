@@ -1,4 +1,4 @@
-package com.study.tdd.requirements;
+package com.study.tdd.requirements.fizzBuzz;
 
 /**
  * <pre>

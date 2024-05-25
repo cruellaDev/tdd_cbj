@@ -1,4 +1,4 @@
-package com.study.tdd.requirements;
+package com.study.tdd.requirements.tennisGame;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,6 @@ import java.util.Map;
  * If at least three points have been scored by each player, and the scores are equal, the score is “deuce”.
  * If at least three points have been scored by each side and a player has one more point than his opponent, the score of the game is “advantage” for the player in the lead.
  * Rating: Medium
- * ... etc up to 100
  * </pre>
  * @version 1.0
  * @author Lee, Ji Won
