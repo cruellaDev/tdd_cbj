@@ -35,7 +35,7 @@ public class TennisGame {
     private TennisGame() {
         this.player1Points = 0;
         this.player2Points = 0;
-        this.playedSets = 0;
+        this.playedSets    = 0;
     }
 
     public String getPlayer1Name() {
