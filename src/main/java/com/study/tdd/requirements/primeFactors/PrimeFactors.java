@@ -10,7 +10,7 @@ import java.util.List;
  * @version 1.0
  * @author Lee, Ji Won
  * @since 2024.05.25
- * @link    <a href="http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata">TDD Kata | Tennis</a>
+ * @link    <a href="http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata">TDD Kata | PrimeFactors</a>
  */
 public class PrimeFactors {
     public static List<Integer> generate(int n) {
