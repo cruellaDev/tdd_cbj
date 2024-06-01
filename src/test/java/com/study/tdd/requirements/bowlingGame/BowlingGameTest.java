@@ -23,6 +23,15 @@ public class BowlingGameTest {
         }
     }
 
+    private void rollSpare() {
+        g.roll(5);
+        g.roll(5);
+    }
+
+    private void rollStrikes() {
+        g.roll(10);
+    }
+
     @Test
     void testGutterGame() throws Exception {
         rollMany(20, 0);
@@ -56,14 +65,5 @@ public class BowlingGameTest {
     void testPerfectGame() throws Exception {
         rollMany(12, 10);
         assertEquals(300, g.score());
-    }
-
-    private void rollSpare() {
-        g.roll(5);
-        g.roll(5);
-    }
-
-    private void rollStrikes() {
-        g.roll(10);
     }
 }
