@@ -1,4 +1,4 @@
-package com.study.tdd.chapters.chapter07;
+package com.study.tdd.chapters.chapter07.autoDebitRegister;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.study.tdd.chapters.chapter07;
+package com.study.tdd.chapters.chapter07.autoDebitRegister;
 
 public enum CardValidity {
     VALID,

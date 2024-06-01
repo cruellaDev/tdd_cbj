@@ -1,7 +1,6 @@
-package com.study.tdd.chapters.chapter07;
+package com.study.tdd.chapters.chapter07.autoDebitRegister;
 
-public class JpaAutoDebitInfoRepository implements AutoDebitInfoRepository{
-
+public class StubAutoDebitInfoRepository implements  AutoDebitInfoRepository {
     @Override
     public AutoDebitInfo findOne(String userId) {
         return null;

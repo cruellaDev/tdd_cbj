@@ -1,4 +1,4 @@
-package com.study.tdd.chapters.chapter07;
+package com.study.tdd.chapters.chapter07.autoDebitRegister;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +16,10 @@ public class AutoDebitInfo {
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
     }
 
     public void changeCardNumber(String cardNumber) {

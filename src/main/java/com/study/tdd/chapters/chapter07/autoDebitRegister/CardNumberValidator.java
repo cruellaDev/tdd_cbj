@@ -1,4 +1,4 @@
-package com.study.tdd.chapters.chapter07;
+package com.study.tdd.chapters.chapter07.autoDebitRegister;
 
 import java.io.IOException;
 import java.net.URI;

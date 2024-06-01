@@ -1,4 +1,4 @@
-package com.study.tdd.chapters.chapter07;
+package com.study.tdd.chapters.chapter07.autoDebitRegister;
 
 import static org.junit.jupiter.api.Assertions.*;
 

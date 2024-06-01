@@ -1,4 +1,4 @@
-package com.study.tdd.chapters.chapter07;
+package com.study.tdd.chapters.chapter07.autoDebitRegister;
 
 public class StubCardNumberValidator extends CardNumberValidator {
     private String invalidNo;
