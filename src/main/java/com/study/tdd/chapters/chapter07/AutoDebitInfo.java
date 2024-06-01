@@ -14,6 +14,10 @@ public class AutoDebitInfo {
         this.registeredDate = dateTime;
     };
 
+    public String getUserId() {
+        return userId;
+    }
+
     public void changeCardNumber(String cardNumber) {
         //
     }
