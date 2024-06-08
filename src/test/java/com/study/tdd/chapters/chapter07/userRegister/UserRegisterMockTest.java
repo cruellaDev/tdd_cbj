@@ -26,7 +26,6 @@ public class UserRegisterMockTest {
     @Test
     void weakPassword() {
         BDDMockito.given(mockPasswordChecker.checkPasswordWeak("pw")).willReturn(true);
-
         assertThrows(WeakPasswordException.class, () -> {
             userRegister.register("id", "pw", "email");
         });
