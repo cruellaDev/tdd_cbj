@@ -19,24 +19,38 @@
      - 외부 API 서버 일시적 장애
 
 ## 대역을 이용한 테스트
-1. DB 대신 맵을 이용해서 자동이체 정보 저장
+1. DB 대신 맵을 이용해서 정보 저장
    - 메모리에만 데이터가 저장되므로 DB와 같은 영속성을 제공하지는 않지만 테스트에 사용할 수 있는 만큼의 기능을 제공
-2. 대역을 사용한 외부상황 흉내와 검증
+   ```
+   private Map<String, User> users = new HashMap<>();
+       @Override
+       public void save(User user) {
+         users.put(user.getId(), user);
+   }
+   ```
+3. 대역을 사용한 외부상황 흉내와 검증
    - 외부 API 연동
      - 외부 API 상황별 결과를 타입으로 분리하여 확인
      - 예) 외부 업체에서 제공하는 카드 정보 API 연동 없이 올바르게 동작 시 "유효" 리턴
+     ```
+     @Override
+     public void sendRegisterEmail(String email) {
+         this.called = true;
+         this.email = email;
+     }
+     ```
    - DB
      - DB연동하지 않고 메모리를 사용
      - 실제 DB를 연동하지 않고 데이터가 올바르게 바뀌고 저장되는지 확인
      - 테스트 속도가 굉장히 빠른 이점
 
 ### 대역의 종류
-| 대역 종류    | 설명                                                                 |
-|----------|--------------------------------------------------------------------|
-| 스텁(Stub) | 테스트에 맞게 단순히 원하는 동작을 수행 <br/>구현을 단순한 것으로 대체.                                        |
-| 가짜(Fake) | 실제 동작하는 구현 제공. <br/> 예) DB 대신 메모리를 이용해서 구현                         |
-| 스파이(Spy) | 호출된 내역 기록. <br/>기록한 내용은 테스트 결과 검증 시 사용. Stub에 해당                   |
-| 모의(Mock) | 실제-기대 행위 검증. 기대하는 대로 동작하지 않을 시 Exception 발생 가능. <br/>Stub이자 Spy에 해당 |
+| 대역 종류    | 설명                                                                                                                    |
+|----------|-----------------------------------------------------------------------------------------------------------------------|
+| 스텁(Stub) | 테스트에 맞게 단순히 원하는 동작을 수행 <br/>특정메서드 호출에 대해 미리 정의된 동작을 반환하는 객체. <br/>테스트에서 사용될 때 실제동작이 아닌 가짜 동작을 수행 <br/>구현을 단순한 것으로 대체. |
+| 가짜(Fake) | 실제 동작하는 구현 제공. <br/> 예) DB 대신 메모리를 이용해서 구현                                                                            |
+| 스파이(Spy) | 호출된 내역 기록. <br/>기록한 내용은 테스트 결과 검증 시 사용.<br/>실제 객체를 사용하면서 해당 객체의 일부 동작을 감시하고 기록할 수 있는 객체. Stub에 해당                     |
+| 모의(Mock) | 실제-기대 행위 검증. 기대하는 대로 동작하지 않을 시 Exception 발생 가능. <br/>Stub이자 Spy에 해당                                                   |
 
 예) 회원가입
 - UserRegister : 회원가입에 대한 핵심 로직 수행 -> 테스트 동작 (Stub)
@@ -47,24 +61,35 @@
 ## 모의 객체로 스텁(Stub)과 스파이(Spy) 대체
     Mockito 사용
 ### Mockito
-- 모의 객체 생성, 검증, 스텁을 지원하는 프레임워크
+- 모의 객체 생성, 검증, 스텁을 지원하는 Java 오픈 소스 프레임워크
+- 실제 객체의 동작을 모방하는 모의 객체(Mock Object)를 생성하여 테스트를 쉽게 만들어 줌.
+- 주로 단일 컴포넌트의 동작을 테스트하는 데 사용.
+#### Mockito 사용 목적
+    모의 객체와 함께 서비스를 호출하여 비즈니스 로직이 올바르게 처리되는지 확인하기 위해 테스트 수행.
+    로직 검증, 예외 상황 대처
 #### 의존 설정 (gradle)
-      dependencies {
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-        testImplementation 'org.mockito:mockito-core:2.26.0'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-      }
-- JUnit5 확장 설정
   ```
   dependencies {
       testImplementation 'org.mockito:mockito-core:4.8.0'
   }
   ```
-    - @Mock 어노테이션을 붙인 필드에 자동으로 모의 객체를 생성해줌
+- JUnit5 확장 설정 가능
+- @Mock 어노테이션을 붙인 필드에 자동으로 모의 객체를 생성해줌
 
-#### 모의 객체
+#### Mockito 수행과정
+    모의 객체 생성 -> 메서드 호출 예상 동작 설정 -> 메서드 호출 검증
+- given - when - then 패턴을 따라 다른 예시를 보면 when()-thenReturn()-verify() 조합도 있으나 given-when 의 구분이 모호하여 given() 메서드 등장.
+- given()-willReturn() 조합을 사용함.
+
+1. 모의 객체 생성 : Mock
+    - 실제 사용되는 객체 생성을 대체하기 위해 테스트에 사용되는 객체.
+    - 일반적으로 null, 0, false 등 기본 타입의 값으로 반환.
+2. 메서드 호출 예상 동작 설정 : Stub
+    - 모의 객체 메서드 호출에 대핸 '예상동작' 정의
+3. 메서드 호출 검증 : Verify
+    - 모의 객체에 대한 특정 메서드가 호출되고 예상된 인자와 함께 호출되었는지 검증 메서드 제공
+
 ##### mock()
-- 모의 객체 생성
 - 특정 타입의 모의 객체 생성
 - 클래스, 인터페이스, 추상 클래스에 대해 모의 객체 생성 가능
     
@@ -100,7 +125,7 @@ given(genMock.generate(GameLevel.EASY)).willReturn("123");
 | anyBoolean()                      | 기본데이터 타입에 대한 임의값 일치          |
 | anyString()                       | 문자열에 대한 임의 값 일치              |
 | any()                             | 임의 타입에 대한 일치                 | 
-| anyList() ... anyCollection()     | 임의 콜렉션에 대한 일치                |   
+| anyList() ... anyCollection()     | 임의 콜렉션에 대한 일치(Mathcher 생성)   |   
 | matches(String), matches(Pattern) | 정규표현식을 이용한 String 값 일치 여부 확인 |
 | eq(값)                             | 특정 값 일치 여부 확인                |
 
@@ -111,6 +136,13 @@ given(genMock.generate(GameLevel.EASY)).willReturn("123");
 - 모의 객체를 전달받아 메서드 호출 여부 검증
 ##### should()
 - 모의 객체의 특정 메서드 호출 지정
+```
+@Test
+void checkPassword() {
+    userRegister.register("id", "pw", "email");
+    BDDMockito.then(mockPasswordChecker).should().checkPasswordWeak(BDDMockito.anyString());
+}
+```
 ##### only()
 - 한 번만 호출되는 것을 검증
 ##### times(int)
@@ -130,6 +162,16 @@ given(genMock.generate(GameLevel.EASY)).willReturn("123");
 - 메서드 호출 여부 검증 중 실제 호출할 때 전달한 인자 보관
 - capture() 로 메서드 호출 시 전달한 인자값 보관
 - getValue() 로 보관한 인자값 리턴
+```
+@Test
+void whenRegisterThenSendMail() {
+    userRegister.register("id", "pw", "email");
+    ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+    BDDMockito.then(mockEmailNotifier).should().sendRegisterEmail(captor.capture());
+    String realEmail = captor.getValue();
+    assertEquals("email@email.com", realEmail);
+}
+```
 
 ## 의존 도출 및 대역 사용 기준
     📢요구사항이 계속해서 바뀌기 때문에 구현하기 전에 모든 기능을 설계하는 것은 불가능함
@@ -185,3 +227,8 @@ given(genMock.generate(GameLevel.EASY)).willReturn("123");
 #### 외부 라이브러리 연동 및 의존 대상이 final인 경우에는 해당 기능을 감싸서 사용
 - 외부 라이브러리가 정적 메서드로 기능을 제공한다면 대체가 어려움.
 - 외부 라이브러리와 연동하기 위한 타입을 따로 만들어 대역으로 재정의
+
+------
+참고 자료
+2) <테스트 주도 개발 시작하기> - 최범석
+1) https://adjh54.tistory.com/346

@@ -35,17 +35,14 @@ public class UserRegisterMockTest {
     @Test
     void checkPassword() {
         userRegister.register("id", "pw", "email");
-
         BDDMockito.then(mockPasswordChecker).should().checkPasswordWeak(BDDMockito.anyString());
     }
 
     @Test
     void whenRegisterThenSendMail() {
         userRegister.register("id", "pw", "email");
-
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         BDDMockito.then(mockEmailNotifier).should().sendRegisterEmail(captor.capture());
-
         String realEmail = captor.getValue();
         assertEquals("email@email.com", realEmail);
     }
