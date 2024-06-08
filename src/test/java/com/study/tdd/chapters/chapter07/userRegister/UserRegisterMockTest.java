@@ -39,7 +39,7 @@ public class UserRegisterMockTest {
 
     @Test
     void whenRegisterThenSendMail() {
-        userRegister.register("id", "pw", "email");
+        userRegister.register("id", "pw", "email@email.com");
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         BDDMockito.then(mockEmailNotifier).should().sendRegisterEmail(captor.capture());
         String realEmail = captor.getValue();
